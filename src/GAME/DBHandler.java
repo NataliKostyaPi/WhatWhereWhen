@@ -33,6 +33,9 @@ public class DBHandler {
 
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost/whatwherewhen?" + "user=root&password=12345");
+            Statement stmt = conn.createStatement();
+            stmt.executeQuery("SET NAMES 'cp1251'");
+            stmt.executeQuery("SET CHARACTER SET 'cp1251'");
 
             // Do something with the Connection
            // showTables(conn);

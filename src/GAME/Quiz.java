@@ -29,9 +29,16 @@ public class Quiz {
         this.question = question;
         this.answer = answer;
     }
+    private static void showQuestions()
+    {
+        for(int i = 0; i < quizesList.size();i++)
+        {System.out.println(quizesList.get(i).getQuestion());}
 
+    }
     public static Quiz getRandomQuiz() {
+        showQuestions();
         int quizId = (int) Math.random()*quizesList.size();
+        System.out.println(""+quizId);
         return quizesList.get(quizId);
     }
     public String getQuestion() {

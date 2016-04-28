@@ -1,10 +1,7 @@
 package GAME;
 import gui.MyPanel;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
@@ -31,7 +28,7 @@ public class MyCrc extends MyPanel implements ActionListener
 
 	public MyCrc()
 	{
-		super("Data/circle.png");
+		super(null);
 			this.setVisible(true);
 		this.setSize(1280, 720);
 		this.setLocation(0, 0);
@@ -57,9 +54,9 @@ public class MyCrc extends MyPanel implements ActionListener
 	
 	public void paintComponent(Graphics gt)
 	{
+		super.paintComponent(gt);
 		Graphics2D g = (Graphics2D) gt;
-		
-		g.clearRect(0, 0, this.getWidth(), this.getHeight());
+
 		int x0 = PICTURE_CENTER_X;
 		int y0 = PICTURE_CENTER_Y;
 		int x1,y1,x2,y2;

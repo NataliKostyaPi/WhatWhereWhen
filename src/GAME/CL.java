@@ -1,5 +1,7 @@
 package GAME;
 
+import gui.MyPanel;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +17,7 @@ public class CL extends JDialog {
     boolean isFirstPress = true;
     long timeOfstart;
 
-    public CL(JFrame f,Team[] teams) {
+    public CL(final JFrame f, Team[] teams) {
         super(f, "���? ���? �����?");
         //
         this.setSize(1280, 760);
@@ -23,9 +25,12 @@ public class CL extends JDialog {
         setResizable(false);
         //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         final JLabel forceLabel = new JLabel(forceText);
-        forceLabel.setFont(new Font(forceLabel.getFont().getName(), Font.PLAIN, 5));
+        forceLabel.setFont(new Font(forceLabel.getFont().getName(), Font.PLAIN, 25));
         //idLabel.setHorizontalAlignment(JTextField.LEFT);
+        TablePanel leftPanel = new TablePanel();
+        leftPanel.setBounds(0,0,640,740);
         final MyCrc P = new MyCrc();
+        P.setBounds(0,0,640,740);
         final JButton B1 = new JButton("START");
 
         B1.setVisible(true);
@@ -36,6 +41,8 @@ public class CL extends JDialog {
                     @Override
                     public void run() {
                         P.add(new QuestionPanel());
+                        setVisible(false);
+                        new QuestionScreen(f).setVisible(true);
                     }
                 });
             }
@@ -63,8 +70,9 @@ public class CL extends JDialog {
         P.setLayout(null);
         P.add(B1);
         P.add(forceLabel);
-        setLayout(new GridLayout(1, 2));
+        setLayout(null);
         this.add(P);
+        this.add(leftPanel);
         this.add(new TeamTable(teams));
 
 
