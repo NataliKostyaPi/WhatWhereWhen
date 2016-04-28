@@ -30,7 +30,10 @@ public class Quiz {
         this.answer = answer;
     }
 
-
+    public static Quiz getRandomQuiz() {
+        int quizId = (int) Math.random()*quizesList.size();
+        return quizesList.get(quizId);
+    }
     public String getQuestion() {
         return question;
     }

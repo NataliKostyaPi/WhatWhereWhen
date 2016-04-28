@@ -23,13 +23,23 @@ public class CL extends JDialog {
         setResizable(false);
         //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         final JLabel forceLabel = new JLabel(forceText);
-        forceLabel.setFont(new Font(forceLabel.getFont().getName(), Font.PLAIN, 25));
+        forceLabel.setFont(new Font(forceLabel.getFont().getName(), Font.PLAIN, 5));
         //idLabel.setHorizontalAlignment(JTextField.LEFT);
         final MyCrc P = new MyCrc();
-        JButton B1 = new JButton("START");
+        final JButton B1 = new JButton("START");
 
         B1.setVisible(true);
-
+        P.setAfterArrowChose(new Runnable() {
+            @Override
+            public void run() {
+                new Timer(1500, new Runnable() {
+                    @Override
+                    public void run() {
+                        P.add(new QuestionPanel());
+                    }
+                });
+            }
+        });
         B1.addActionListener(new ActionListener() {
                                  public void actionPerformed(ActionEvent e) {
                                      if (isFirstPress) {
@@ -40,6 +50,8 @@ public class CL extends JDialog {
                                      } else {
                                          //вычислить сколько времени прошло с момента первого нажатия
                                          P.start(System.currentTimeMillis() - timeOfstart);
+                                         B1.setVisible(false);
+
                                      }
                                      isFirstPress = !isFirstPress;//change value
                                  }
@@ -54,7 +66,7 @@ public class CL extends JDialog {
         setLayout(new GridLayout(1, 2));
         this.add(P);
         this.add(new TeamTable(teams));
-        this.setVisible(true);
+
 
 
     }
@@ -69,7 +81,7 @@ public class CL extends JDialog {
                     if (System.currentTimeMillis() - timer > 33) {
                         int forceNow = (int) (System.currentTimeMillis() - timeOfstart);
                         forceLabel.setText(forceText + ": " + forceNow);
-                        forceLabel.setFont(new Font(forceLabel.getFont().getName(), Font.PLAIN, 25));
+                        forceLabel.setFont(new Font(forceLabel.getFont().getName(), Font.PLAIN, 15));
                         //forceLabel.setBounds(forceLabel.getX(),forceLabel.getY(),forceLabel.getWidth()*2,forceLabel.getHeight());
                         if (System.currentTimeMillis() - timeOfstart > 5000) {
                             P.start(System.currentTimeMillis() - timeOfstart);

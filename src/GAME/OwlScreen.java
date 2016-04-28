@@ -15,24 +15,13 @@ public class OwlScreen extends Screen {
     @Override
     protected void setGui(JFrame frame, JPanel jpanel) {
         super.setGui(frame, jpanel);
-        Timer();
-    }
-
-    private void Timer() {
-        new Thread(new Runnable() {
+        new Timer(2000, new Runnable() {
             @Override
             public void run() {
-                long timer = System.currentTimeMillis();
-
-                while (true) {
-                    if (System.currentTimeMillis() - timer > 2000) {
-                        closeWindow();
-                        break;
-                    }
-                }
-
+                closeWindow();
             }
-        }).start();
-
+        });
     }
+
+
 }

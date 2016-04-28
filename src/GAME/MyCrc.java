@@ -1,4 +1,6 @@
 package GAME;
+import gui.MyPanel;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -11,7 +13,7 @@ import java.util.TimerTask;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class MyCrc extends JPanel implements ActionListener
+public class MyCrc extends MyPanel implements ActionListener
 {
 	final private int na = 5;
 	public static final int PICTURE_CENTER_X = 310;
@@ -21,9 +23,16 @@ public class MyCrc extends JPanel implements ActionListener
 	private float pointA = 0;
 	private float cs = (float) (360.0/13.0);
 	private Timer T;
+	private Runnable afterArrowChose;
+
+	public void setAfterArrowChose(Runnable afterArrowChose) {
+		this.afterArrowChose = afterArrowChose;
+	}
+
 	public MyCrc()
 	{
-		this.setVisible(true);
+		super("Data/circle.png");
+			this.setVisible(true);
 		this.setSize(1280, 720);
 		this.setLocation(0, 0);
 		T = new Timer(5,this);
@@ -34,6 +43,13 @@ public class MyCrc extends JPanel implements ActionListener
 	{
 		speed = (float) (1 + timeOfCharge/500);
 		T.start();
+		new GAME.Timer(timeOfCharge * 3, new Runnable() {
+			@Override
+			public void run() {
+				afterArrowChose.run();
+				System.out.println("" + (int)(( (pointA%360) / 27.7) + 1));
+			}
+		});
 	}
 	public void actionPerformed(ActionEvent arg0) {   
 	    repaint();
@@ -48,7 +64,7 @@ public class MyCrc extends JPanel implements ActionListener
 		int y0 = PICTURE_CENTER_Y;
 		int x1,y1,x2,y2;
 		int r  = 300;
-		g.setColor(Color.GRAY);
+		/*g.setColor(Color.GRAY);
 		g.fillOval(x0-r, y0-r, r*2, r*2);
 		g.setColor(Color.YELLOW);
 		g.drawOval(x0-r, y0-r, r*2, r*2);
@@ -58,7 +74,7 @@ public class MyCrc extends JPanel implements ActionListener
 		 y1 = (int) Math.round(y0-Math.sin((a*cs)*Math.PI/180)*r);
 		 g.drawLine(x0, y0, x1, y1);
 		}
-		
+		*/
 		g.setStroke(new BasicStroke(10.0f));
 		
 		g.setColor(Color.RED);
@@ -77,11 +93,13 @@ public class MyCrc extends JPanel implements ActionListener
 		g.drawLine(x1,y1,x2,y2);
 		
 		pointA += speed; speed -= 0.005;
-		if (speed <= 0){
+		if (speed <= 0) {
 			speed = 0;
 			T.stop();
-			System.out.println("" + (int)(( (pointA%360) / 27.7) + 1));
 		}
+
+
+
 	}
 
 }
