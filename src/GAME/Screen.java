@@ -50,8 +50,21 @@ public class Screen extends JDialog {
         this.add(jp);
         this.setVisible(true);
     }
+    public Screen(JFrame f, Object[] obj, String backgrundImage, String screenTitle) {
+        super(f);
+        this.setSize(f.getSize());
+        sizeX = f.getSize().width;
+        sizeY = f.getSize().height;
+        this.setModal(true);
+        setResizable(false);
+        JPanel jp = new MyPanel(backgrundImage);
+        setGui(f, jp, obj);
+        this.add(jp);
+        this.setVisible(true);
+    }
 
     protected void setGui(JFrame frame, JPanel jpanel) {}
+    protected void setGui(JFrame frame, JPanel jpanel, Object[] obj) {}
     public void closeWindow() {
         this.setVisible(false);
     }

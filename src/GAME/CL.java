@@ -17,7 +17,7 @@ public class CL extends JDialog {
     boolean isFirstPress = true;
     long timeOfstart;
 
-    public CL(final JFrame f, Team[] teams) {
+    public CL(final JFrame f, final Team[] teams) {
         super(f, "���? ���? �����?");
         //
         this.setSize(1280, 760);
@@ -42,7 +42,7 @@ public class CL extends JDialog {
                     public void run() {
                         P.add(new QuestionPanel());
                         setVisible(false);
-                        new QuestionScreen(f).setVisible(true);
+                        new QuestionScreen(f, teams).setVisible(true);
                     }
                 });
             }
