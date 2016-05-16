@@ -37,7 +37,7 @@ public class Quiz {
     }
     public static Quiz getRandomQuiz() {
         showQuestions();
-        int quizId = (int) Math.random()*quizesList.size();
+        int quizId = (int) (Math.random()*quizesList.size());
         System.out.println(""+quizId);
         return quizesList.get(quizId);
     }

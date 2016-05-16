@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.*;
+import java.io.File;
 
 import javax.swing.JPanel;
 
@@ -22,6 +23,14 @@ public class MyPanel extends JPanel
 	{
 		Graphics2D k= (Graphics2D) g;
 		k.drawImage(bg,0,0,1280, 720,null);
+
+	}
+	public void changeBackground(String path){
+		bg = GUI.getImage(path);
+
+	}
+	public void changeBackground(File file){
+		bg = GUI.getImage(file);
 
 	}
 }

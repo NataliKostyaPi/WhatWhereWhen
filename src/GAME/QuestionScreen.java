@@ -1,5 +1,7 @@
 package GAME;
 
+import gui.SoundHandler;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,61 +10,201 @@ import java.awt.event.ActionListener;
 /**
  * Created by kostya on 28.04.2016.
  */
-public class QuestionScreen extends Screen{
+public class QuestionScreen extends Screen {
+    public final String NO_BODY_ANSWERED_FROM_TEAM = "NO_BODY_ANSWERED_FROM_TEAM";
     Quiz quiz;
+    Timer t1;
+    static int time = 60;
+    boolean isTimerStoped = true;
+    private static OnAnswerGiven onAnswerGiven = new OnAnswerGiven() {
+        @Override
+        public void onAnswer(String[] teamsAnswers ) {
+            System.out.println("listener");
+        }
+    } ;
     public QuestionScreen(JFrame f, Team[] teams) {
-        super(f, teams,"Data/Fon1111.jpg", "Внимание вопрос");
+        super(f, teams, "Data/Fontime.jpg", "Внимание вопрос");
 
     }
 
+    public static void setOnAnswerGiven(OnAnswerGiven onAnswerGiven) {
+        QuestionScreen.onAnswerGiven = onAnswerGiven;
+    }
+
     @Override
-    protected void setGui(JFrame frame, JPanel jpanel, Object[] obj) {
-        Team team1 = (Team) obj[0];
+    protected void setGui(final JFrame frame, JPanel jpanel, Object[] obj) {
+        final Team team1 = (Team) obj[0];
         Team team2 = (Team) obj[1];
         jpanel.setLayout(null);
-
-        JLabel questionLabel = new JLabel((this.quiz = Quiz.getRandomQuiz()).getQuestion());
+        time = 60;
+        isTimerStoped = true;
+        quiz = Quiz.getRandomQuiz();
+        JLabel questionLabel = new JLabel("" + stringSizeOptimizer(quiz.getQuestion()));
         questionLabel.setHorizontalAlignment(JLabel.CENTER);
         questionLabel.setFont(new Font(questionLabel.getFont().getName(), Font.PLAIN, 40));
+        questionLabel.setBounds(80, 200, frame.getWidth()-80, frame.getHeight() / 3);
+        questionLabel.setVisible(true);
 
-        questionLabel.setBounds(440,100,400,200);
-
+        final JLabel timerLabel = new JLabel(""+time);
+        timerLabel.setHorizontalAlignment(JLabel.CENTER);
+        timerLabel.setFont(new Font(questionLabel.getFont().getName(), Font.PLAIN, 150));
+        timerLabel.setForeground(Color.BLUE);
+        timerLabel.setBounds(0, -30, 200, 200);
+        timerLabel.setVisible(true);
 
         final JLabel answerLabel = new JLabel();
         answerLabel.setHorizontalAlignment(JLabel.CENTER);
         answerLabel.setFont(new Font(questionLabel.getFont().getName(), Font.PLAIN, 40));
+        answerLabel.setText(quiz.getAnswer());
+        answerLabel.setVisible(false);
+        answerLabel.setBounds(80, 500, frame.getWidth() - 80, frame.getHeight() / 3);
 
-        answerLabel.setBounds(440,200,400,200);
-        String[] items = new String[1+team1.getPlayerNames().length + team2.getPlayerNames().length];
-        items[0] = "Nobody";
 
-        for (int i = 0; i < team1.getPlayerNames().length; i++)
-        {
-            items[i+1] = team1.getPlayerNames()[i];
+
+        final JButton buttonStartTimer = new JButton("Start timer");
+        buttonStartTimer.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                isTimerStoped = !isTimerStoped;
+                if (isTimerStoped) {
+                    buttonStartTimer.setText("Start timer");
+                } else {
+                    buttonStartTimer.setText("stop timer");
+                }
+
+                timerLabel.setText("" + time);
+                t1 = new Timer(1000, new Runnable() {
+                    @Override
+                    public void run() {
+                        if (time >= 1 && isTimerStoped == false) {
+                            if (time < 21) {
+                                timerLabel.setForeground(Color.RED);
+                                if (time < 11) {
+                                    SoundHandler.beepSound("Sounds/beep.wav");
+                                }
+                            } else {
+                                timerLabel.setForeground(Color.BLACK);
+                            }
+                            timerLabel.setText("" + time);
+                            time--;
+                            t1 = new Timer(1000, this);
+                        } else {
+                            timerLabel.setText("" + time);
+                            timerLabel.setForeground(Color.BLUE);
+                            if (isTimerStoped == false) {
+                                SoundHandler.beepSound("Sounds/beep-final.wav");
+                                isTimerStoped = true;
+                            }
+                        }
+                    }
+                });
+
+
+            }
+        });
+        buttonStartTimer.setBounds(200, 20, 200, 40);
+
+
+
+        final JLabel team1ComboLabel = new JLabel("Team 1");
+        team1ComboLabel.setHorizontalAlignment(JLabel.CENTER);
+        team1ComboLabel.setBounds(440, 20, 190, 40);
+        team1ComboLabel.setVisible(false);
+
+        final JLabel team2ComboLabel = new JLabel("Team 2");
+        team2ComboLabel.setHorizontalAlignment(JLabel.CENTER);
+        team2ComboLabel.setBounds(640, 20, 190, 40);
+        team2ComboLabel.setVisible(false);
+
+        final JComboBox comboBoxTeam1 = new JComboBox(getItems(team1));
+        comboBoxTeam1.setBounds(440, 60, 190, 60);
+        comboBoxTeam1.setVisible(false);
+
+        final JComboBox comboBoxTeam2 = new JComboBox(getItems(team2));
+        comboBoxTeam2.setBounds(640, 60, 190, 60);
+        comboBoxTeam2.setVisible(false);
+
+        JButton buttonResetTimer = new JButton("Reset timer");
+        buttonResetTimer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                time = 60;
+                isTimerStoped  = true;
+                timerLabel.setForeground(Color.BLUE);
+                timerLabel.setText(""+time);
+                buttonStartTimer.setText("Start timer");
+            }
         }
-
-        for (int i = 0; i < team2.getPlayerNames().length; i++)
-        {
-            items[i + 1 + team1.getPlayerNames().length] = team2.getPlayerNames()[i];
-        }
-        JComboBox comboBox = new JComboBox(items);
-        comboBox.setBounds(540, 300, 200, 80);
-
-        JButton buttonSave = new JButton("Answer");
-        buttonSave.setVisible(true);
-        buttonSave.addActionListener(new ActionListener() {
-                                         public void actionPerformed(ActionEvent e) {
-                                             answerLabel.setText(quiz.getAnswer());
-                                         }
-                                     }
         );
-        buttonSave.setBounds(540, 500, 200, 80);
-        
-        buttonSave.setBounds(540, 500, 200, 80);
-        jpanel.add(buttonSave);
+        buttonResetTimer.setBounds(200, 80, 200, 40);
+        final JButton buttonAnswer = new JButton("Show Answer");
+        buttonAnswer.addActionListener(new
+
+                                               ActionListener() {
+                                                   boolean isFirstClick = true;
+                                                   public void actionPerformed(ActionEvent e) {
+                                                       System.out.println("isFirstClick " + isFirstClick);
+                                                       if(isFirstClick == true) {
+                                                           buttonAnswer.setText("Send back");
+                                                           answerLabel.setVisible(true);
+                                                           comboBoxTeam1.setVisible(true);
+                                                           comboBoxTeam2.setVisible(true);
+                                                           team1ComboLabel.setVisible(true);
+                                                           team2ComboLabel.setVisible(true);
+                                                           isFirstClick = false;
+                                                       } else {
+                                                           String[] teamsAnswers = {(String) comboBoxTeam1.getSelectedItem(), (String)comboBoxTeam2.getSelectedItem()};
+
+                                                           onAnswerGiven.onAnswer(teamsAnswers);
+                                                           closeWindow();
+
+                                                       }
+                                                   }
+                                               }
+
+        );
+        buttonAnswer.setBounds(frame.getWidth()-400, 20, 300, 100);
+        jpanel.add(timerLabel);
+        jpanel.add(buttonStartTimer);
+        jpanel.add(buttonResetTimer);
+
+        jpanel.add(buttonAnswer);
         jpanel.add(questionLabel);
         jpanel.add(answerLabel);
-        jpanel.add(comboBox);
+        jpanel.add(team1ComboLabel);
+        jpanel.add(team2ComboLabel);
+        jpanel.add(comboBoxTeam1);
+        jpanel.add(comboBoxTeam2);
 
+    }
+
+    private String[] getItems(Team team) {
+        String[] itemsTeam1 = new String[team.getPlayerNames().length+1];
+        itemsTeam1[0] = GameScore.NO_BODY;
+        for (int i = 0; i < team.getPlayerNames().length; i++) {
+            itemsTeam1[i + 1] = team.getPlayerNames()[i];
+        }
+        return itemsTeam1;
+    }
+
+    private String stringSizeOptimizer(String input) {
+    String[] arrays = input.split(" ");
+        String result = "<html>";
+        //<html>dddddddd<br> rrrrrrrrrrr</html>
+        int charSum = 0;
+        for (int i = 0; i < arrays.length;i++){
+            if(charSum + arrays[i].length() < 50) {
+                charSum += arrays[i].length();
+                result += arrays[i] + " ";
+            } else {
+                charSum = arrays[i].length();
+                result += "<br>" + arrays[i] + " ";
+            }
+
+        }
+        return result + "</html>";
+    }
+
+    public interface OnAnswerGiven{
+        public void onAnswer(String[] teamsAnswers);
     }
 }

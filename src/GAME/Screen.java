@@ -66,7 +66,8 @@ public class Screen extends JDialog {
     protected void setGui(JFrame frame, JPanel jpanel) {}
     protected void setGui(JFrame frame, JPanel jpanel, Object[] obj) {}
     public void closeWindow() {
-        this.setVisible(false);
+        setVisible(false);
+        dispose();
     }
     public int getSizeX() {
         return sizeX;

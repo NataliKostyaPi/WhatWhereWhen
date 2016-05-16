@@ -9,7 +9,8 @@ import java.awt.event.ActionListener;
  */
 public class QuestionManager extends Screen {
         public QuestionManager(JFrame f) {
-            super(f);
+
+            super(f,"Data/Fon1111.jpg", "Внимание вопрос");
         }
 
     @Override

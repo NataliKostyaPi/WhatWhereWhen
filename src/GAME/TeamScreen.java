@@ -114,9 +114,9 @@ public class TeamScreen extends Screen {
         geatherData[teamNo-1] = new GeatherDataFromPanel() {
                 @Override
                 public Team geatherTeam() {
-                    String[] teamPlayerNames = new String[fields.length];
+                    String[] teamPlayerNames = new String[fields.length-1];
               for (int i = 1; i < fields.length; i++) {
-                  teamPlayerNames[i] = fields[i].getText();
+                  teamPlayerNames[i-1] = fields[i].getText();
               }
                 return new Team(fields[0].getText(), teamPlayerNames);
                 }};

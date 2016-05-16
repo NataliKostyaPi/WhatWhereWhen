@@ -11,7 +11,7 @@ public class ShowQuiz extends Screen {
     int shownQuestionId = 0;
 
     public ShowQuiz(JFrame f) {
-        super(f);
+        super(f,"Data/Fon1111.jpg", "Внимание вопрос");
     }
 
     @Override
