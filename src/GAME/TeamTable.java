@@ -19,39 +19,39 @@ public class TeamTable extends MyPanel {
         this.setLocation(650, 0);
         this.setVisible(true);
 
-        team1Fields[0] = new EditableField("Team " + 1 + " name:", gameScore.getTeamName(0), new int[] {0,0}).setMarked();
-        team1Fields[1] = new EditableField("Score:", "", new int[] {1,0}).setMarked();
+        team1Fields[0] = new EditableField("Команда № 1", gameScore.getTeamName(0), new int[] {0,0}).setMarked();
+        team1Fields[1] = new EditableField("Счет:", "", new int[] {1,0}).setMarked();
 
-        team1Fields[2] = new EditableField("Question 1:", "", new int[] {0,1});
-        team1Fields[3] = new EditableField("Question 2:", "", new int[] {0,2});
-        team1Fields[4] = new EditableField("Question 3:", "", new int[] {0,3});
-        team1Fields[5] = new EditableField("Question 4:", "", new int[] {0,4});
-        team1Fields[6] = new EditableField("Question 5:", "", new int[] {0,5});
-        team1Fields[7] = new EditableField("Question 6:", "", new int[] {0,6});
-        team1Fields[8] = new EditableField("Question 7:", "", new int[] {0,7});
-        team1Fields[9] = new EditableField("Question 8:", "", new int[] {1,1});//8
-        team1Fields[10] = new EditableField("Question 9:", "", new int[] {1,2});
-        team1Fields[11] = new EditableField("Question 10:", "", new int[] {1,3});
-        team1Fields[12] = new EditableField("Question 11:", "", new int[] {1,4});
-        team1Fields[13] = new EditableField("Question 12:", "", new int[] {1,5});
-        team1Fields[14] = new EditableField("Question 13:", "", new int[] {1,6});
+        team1Fields[2] = new EditableField("Вопрос 1:", "", new int[] {0,1});
+        team1Fields[3] = new EditableField("Вопрос 2:", "", new int[] {0,2});
+        team1Fields[4] = new EditableField("Вопрос 3:", "", new int[] {0,3});
+        team1Fields[5] = new EditableField("Вопрос 4:", "", new int[] {0,4});
+        team1Fields[6] = new EditableField("Вопрос 5:", "", new int[] {0,5});
+        team1Fields[7] = new EditableField("Вопрос 6:", "", new int[] {0,6});
+        team1Fields[8] = new EditableField("Вопрос 7:", "", new int[] {0,7});
+        team1Fields[9] = new EditableField("Вопрос 8:", "", new int[] {1,1});//8
+        team1Fields[10] = new EditableField("Вопрос 9:", "", new int[] {1,2});
+        team1Fields[11] = new EditableField("Вопрос 10:", "", new int[] {1,3});
+        team1Fields[12] = new EditableField("Вопрос 11:", "", new int[] {1,4});
+        team1Fields[13] = new EditableField("Вопрос 12:", "", new int[] {1,5});
+        team1Fields[14] = new EditableField("Вопрос 13:", "", new int[] {1,6});
 
-        team2Fields[0] = new EditableField("Team " + 2 + " name:", gameScore.getTeamName(1), new int[] {2,0}).setMarked();
-        team2Fields[1] = new EditableField("Score:","", new int[] {3,0}).setMarked();
+        team2Fields[0] = new EditableField("Команда № 2", gameScore.getTeamName(1), new int[] {2,0}).setMarked();
+        team2Fields[1] = new EditableField("Счет:","", new int[] {3,0}).setMarked();
 
-        team2Fields[2] = new EditableField("Question 1:", "", new int[] {2,1});
-        team2Fields[3] = new EditableField("Question 2:", "", new int[] {2,2});
-        team2Fields[4] = new EditableField("Question 3:", "", new int[] {2,3});
-        team2Fields[5] = new EditableField("Question 4:", "", new int[] {2,4});
-        team2Fields[6] = new EditableField("Question 5:", "", new int[] {2,5});
-        team2Fields[7] = new EditableField("Question 6:", "", new int[] {2,6});
-        team2Fields[8] = new EditableField("Question 7:", "", new int[] {2,7});
-        team2Fields[9] = new EditableField("Question 8:", "", new int[] {3,1});//8
-        team2Fields[10] = new EditableField("Question 9:", "", new int[] {3,2});
-        team2Fields[11] = new EditableField("Question 10:", "", new int[] {3,3});
-        team2Fields[12] = new EditableField("Question 11:", "", new int[] {3,4});
-        team2Fields[13] = new EditableField("Question 12:", "", new int[] {3,5});
-        team2Fields[14] = new EditableField("Question 13:", "", new int[] {3,6});
+        team2Fields[2] = new EditableField("Вопрос 1:", "", new int[] {2,1});
+        team2Fields[3] = new EditableField("Вопрос 2:", "", new int[] {2,2});
+        team2Fields[4] = new EditableField("Вопрос 3:", "", new int[] {2,3});
+        team2Fields[5] = new EditableField("Вопрос 4:", "", new int[] {2,4});
+        team2Fields[6] = new EditableField("Вопрос 5:", "", new int[] {2,5});
+        team2Fields[7] = new EditableField("Вопрос 6:", "", new int[] {2,6});
+        team2Fields[8] = new EditableField("Вопрос 7:", "", new int[] {2,7});
+        team2Fields[9] = new EditableField("Вопрос 8:", "", new int[] {3,1});//8
+        team2Fields[10] = new EditableField("Вопрос 9:", "", new int[] {3,2});
+        team2Fields[11] = new EditableField("Вопрос 10:", "", new int[] {3,3});
+        team2Fields[12] = new EditableField("Вопрос 11:", "", new int[] {3,4});
+        team2Fields[13] = new EditableField("Вопрос 12:", "", new int[] {3,5});
+        team2Fields[14] = new EditableField("Вопрос 13:", "", new int[] {3,6});
 
 
     }
@@ -110,6 +110,7 @@ public void refreshTables(GameScore gameScore) {
         }
         public EditableField setMarked() {
             label.setForeground(Color.BLUE);
+            editable.setFont(new Font(editable.getFont().getName(), Font.PLAIN, 20));
             return this;
         }
         public void setEditable(String editableText) {

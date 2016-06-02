@@ -24,6 +24,7 @@ public class Screen extends JDialog {
         setGui(f, jp);
         this.add(jp);
         this.setVisible(true);
+
     }
 
     public Screen(JFrame f, String screenTitle) {
@@ -37,6 +38,7 @@ public class Screen extends JDialog {
         setGui(f, jp);
         this.add(jp);
         this.setVisible(true);
+
     }
     public Screen(JFrame f, String backgrundImage, String screenTitle) {
         super(f);
@@ -49,6 +51,7 @@ public class Screen extends JDialog {
         setGui(f, jp);
         this.add(jp);
         this.setVisible(true);
+
     }
     public Screen(JFrame f, Object[] obj, String backgrundImage, String screenTitle) {
         super(f);
@@ -61,6 +64,7 @@ public class Screen extends JDialog {
         setGui(f, jp, obj);
         this.add(jp);
         this.setVisible(true);
+
     }
 
     protected void setGui(JFrame frame, JPanel jpanel) {}

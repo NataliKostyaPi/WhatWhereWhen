@@ -11,13 +11,13 @@ public class ShowQuiz extends Screen {
     int shownQuestionId = 0;
 
     public ShowQuiz(JFrame f) {
-        super(f,"Data/Fon1111.jpg", "Р’РЅРёРјР°РЅРёРµ РІРѕРїСЂРѕСЃ");
+        super(f,"Data/Fon1111.jpg", "Внимание вопрос");
     }
 
     @Override
     protected void setGui(JFrame frame, JPanel jpanel) {
         super.setGui(frame, jpanel);
-
+        if(getFirstQuiz()!=null);
         final JTextField questionText = new JTextField("" + getFirstQuiz().getQuestion());
         final JTextField answerText = new JTextField("" + getFirstQuiz().getAnswer());
 
@@ -75,6 +75,21 @@ public class ShowQuiz extends Screen {
         buttonDelete.addActionListener(new ActionListener() {
                                            public void actionPerformed(ActionEvent e) {
                                                deleteQuiz();
+                                               Quiz quizToShow = getPrevio1usQuiz();
+                                               if (quizToShow != null) {
+                                                   questionText.setText(quizToShow.getQuestion());
+                                                   answerText.setText(quizToShow.getAnswer());
+                                               }
+                                               else {
+                                                   quizToShow = getNextQuiz();
+                                                   if (quizToShow != null) {
+                                                       questionText.setText(quizToShow.getQuestion());
+                                                       answerText.setText(quizToShow.getAnswer());
+                                                   }else {
+                                                       questionText.setText("");
+                                                       answerText.setText("");
+                                                   }
+                                               }
                                            }
                                        }
         );
@@ -82,7 +97,7 @@ public class ShowQuiz extends Screen {
         buttonDelete.setBounds(750, 500, 200, 80);
         jpanel.add(buttonDelete);
 
-        JButton buttonBack = new JButton("Delete question");
+        JButton buttonBack = new JButton("Back");
         buttonBack.setVisible(true);
         buttonBack.addActionListener(new ActionListener() {
                                            public void actionPerformed(ActionEvent e) {

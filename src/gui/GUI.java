@@ -22,6 +22,7 @@ public class GUI implements ActionListener, MouseListener, MouseMotionListener, 
         }
         return IMG;
     }
+
     public static Image getImage(File file) {
         Toolkit.getDefaultToolkit();
         BufferedImage IMG = null;
@@ -75,9 +76,7 @@ public class GUI implements ActionListener, MouseListener, MouseMotionListener, 
         button1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                TeamScreen ff = new TeamScreen(frame);
-                frame.setVisible(true);
-
+                TableScreen ff = new TableScreen(frame);
 
                 //frame.setIconImage();
 
@@ -88,10 +87,22 @@ public class GUI implements ActionListener, MouseListener, MouseMotionListener, 
         button2.setFont(new Font("TimesNewRoman", Font.BOLD, 36));
         button2.setBounds(550, 310, 320, 48);
         button2.setForeground(Color.getHSBColor(400, 155, 150));
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                frame.setVisible(false);
+                WarmUp wu = new WarmUp(frame);
+                frame.setVisible(true);
+            }
+        });
+
         JButton button3 = new JButton("Статистика");
         button3.setFont(new Font("TimesNewRoman", Font.BOLD, 36));
         button3.setBounds(550, 380, 320, 48);
         button3.setForeground(Color.getHSBColor(400, 155, 150));
+
+
         JButton button4 = new JButton("Настройки");
         button4.setFont(new Font("TimesNewRoman", Font.BOLD, 36));
         button4.setBounds(550, 450, 320, 48);
@@ -102,14 +113,21 @@ public class GUI implements ActionListener, MouseListener, MouseMotionListener, 
         button5.setForeground(Color.getHSBColor(400, 155, 150));
         button1.addActionListener(this);
         button2.addActionListener(this);
-        button3.addActionListener(this);
+        button3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                StatisticsScreen ss = new StatisticsScreen();
+
+            }
+        });
         button4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 frame.setVisible(false);
                 SettingsScreen ss = new SettingsScreen(frame);
-                frame.setVisible(true);
+                frame.setVisible(false);
             }
         });
         button5.addActionListener(this);
@@ -136,75 +154,73 @@ public class GUI implements ActionListener, MouseListener, MouseMotionListener, 
         //menuReg.addActionListener(this);
         menuReg.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         menu.add(menuReg);
-        menuReg.addActionListener(new
-                                          ActionListener() {
-                                              public void actionPerformed(ActionEvent event) {
-                                                  File f = new File("reg.txt");
-                                                  FileReader in = null;
-                                                  try {
-                                                      in = new FileReader(f);
-                                                  } catch (FileNotFoundException e) {
-                                                      e.printStackTrace();
-                                                  }
-                                                  char[] arr = new char[(int) f.length()];
-                                                  int read = 0;
-                                                  try {
-                                                      read = in.read(arr);
-                                                  } catch (IOException e) {
-                                                      e.printStackTrace();
-                                                  }
-                                                  try {
-                                                      in.close();
-                                                  } catch (IOException e) {
-                                                      e.printStackTrace();
-                                                  }
-                                                  JFrame jf = new JFrame("Что? Где? Когда?");
-                                                  jf.setIconImage(getImage("Data/icon.png"));
-                                                  JTextArea jta = new JTextArea();
-                                                  jta.append(String.valueOf(arr, 0, read));
-                                                  jf.add(jta);
-                                                  jf.setSize(1280, 720);
-                                                  jf.setVisible(true);
-                                                  jf.setResizable(false);
-                                              }
-                                          });
+        menuReg.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                File f = new File("reg.txt");
+                FileReader in = null;
+                try {
+                    in = new FileReader(f);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                char[] arr = new char[(int) f.length()];
+                int read = 0;
+                try {
+                    read = in.read(arr);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                JFrame jf = new JFrame("Что? Где? Когда?");
+                jf.setIconImage(getImage("Data/icon.png"));
+                JTextArea jta = new JTextArea();
+                jta.append(String.valueOf(arr, 0, read));
+                jf.add(jta);
+                jf.setSize(1280, 720);
+                jf.setVisible(true);
+                jf.setResizable(false);
+            }
+        });
 
 
         menuDoc.addActionListener(this);
         menuDoc.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         menu.add(menuDoc);
-        menuDoc.addActionListener(new
-                                          ActionListener() {
-                                              public void actionPerformed(ActionEvent event) {
-                                                  File f = new File("doc.txt");
-                                                  FileReader in = null;
-                                                  try {
-                                                      in = new FileReader(f);
-                                                  } catch (FileNotFoundException e) {
-                                                      e.printStackTrace();
-                                                  }
-                                                  char[] arr = new char[(int) f.length()];
-                                                  int read = 0;
-                                                  try {
-                                                      read = in.read(arr);
-                                                  } catch (IOException e) {
-                                                      e.printStackTrace();
-                                                  }
-                                                  try {
-                                                      in.close();
-                                                  } catch (IOException e) {
-                                                      e.printStackTrace();
-                                                  }
-                                                  JFrame jf = new JFrame("Что? Где? Когда?");
-                                                  jf.setIconImage(getImage("Data/icon.png"));
-                                                  JTextArea jta = new JTextArea();
-                                                  jta.append(String.valueOf(arr, 0, read));
-                                                  jf.add(jta);
-                                                  jf.setSize(1280, 720);
-                                                  jf.setVisible(true);
-                                                  jf.setResizable(false);
-                                              }
-                                          });
+        menuDoc.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                File f = new File("doc.txt");
+                FileReader in = null;
+                try {
+                    in = new FileReader(f);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                char[] arr = new char[(int) f.length()];
+                int read = 0;
+                try {
+                    read = in.read(arr);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                JFrame jf = new JFrame("Что? Где? Когда?");
+                jf.setIconImage(getImage("Data/icon.png"));
+                JTextArea jta = new JTextArea();
+                jta.append(String.valueOf(arr, 0, read));
+                jf.add(jta);
+                jf.setSize(1280, 720);
+                jf.setVisible(true);
+                jf.setResizable(false);
+            }
+        });
 
         // настроить рамку и добавлять компоненты
         frame.setIconImage(getImage("Data/icon.png"));
@@ -219,6 +235,7 @@ public class GUI implements ActionListener, MouseListener, MouseMotionListener, 
         center.requestFocusInWindow();
         frame.setVisible(true);
         frame.setResizable(false);
+
     }
 
     // отобразить рисунок на экране
@@ -246,9 +263,9 @@ public class GUI implements ActionListener, MouseListener, MouseMotionListener, 
     public void mousePressed(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
-        System.out.println("Mouse pressed at " + x + ", " + y);
+        System.out.println("Mouse pressed at "+x+", "+y);
         offscreen.setColor(Color.GREEN);
-        offscreen.fillOval(x - 3, y - 3, 6, 6);
+        offscreen.fillOval(x-3, y-3, 6, 6);
         showz();
     }
 
@@ -279,14 +296,17 @@ public class GUI implements ActionListener, MouseListener, MouseMotionListener, 
     }
 
     public void keyTyped(KeyEvent e) {
-        System.out.println("Key = '" + e.getKeyChar() + "'");
+        System.out.println("Key = '"+e.getKeyChar()+"'");
     }
 
     // тест клиента
     public static void main(String[] args) {
         GUI gui = new GUI(1280, 720);
         //    gui.picture(0, 0, "Untitled-1.png");
+
         gui.showz();
+
+
     }
 
 }

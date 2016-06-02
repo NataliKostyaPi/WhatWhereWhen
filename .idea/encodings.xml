@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding">
+  <component name="Encoding" native2AsciiForPropertiesFiles="true">
+    <file url="file://$PROJECT_DIR$/src/GAME" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/GAME/AddQuestion.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/GAME/AddWord.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/GAME/DBHandler.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/GAME/GameOverScreen.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/GAME/GameScore.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/GAME/MyCrc.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/GAME/OwlScreen.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/GAME/QuestionManager.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/GAME/QuestionPanel.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/GAME/QuestionScreen.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/GAME/SettingsScreen.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/GAME/ShowQuiz.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/GAME/ShowWords.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/GAME/StatisticsScreen.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/GAME/TableScreen.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/GAME/TeamScreen.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/GAME/TeamStatitic.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/GAME/TeamTable.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/GAME/WarmUp.java" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/src/gui/GUI.java" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/src/gui/Menu.java" charset="windows-1251" />
+    <file url="PROJECT" charset="windows-1251" />
   </component>
 </project>

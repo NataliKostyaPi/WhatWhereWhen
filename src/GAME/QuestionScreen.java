@@ -11,19 +11,19 @@ import java.awt.event.ActionListener;
  * Created by kostya on 28.04.2016.
  */
 public class QuestionScreen extends Screen {
-    public final String NO_BODY_ANSWERED_FROM_TEAM = "NO_BODY_ANSWERED_FROM_TEAM";
-    Quiz quiz;
-    Timer t1;
     static int time = 60;
-    boolean isTimerStoped = true;
     private static OnAnswerGiven onAnswerGiven = new OnAnswerGiven() {
         @Override
-        public void onAnswer(String[] teamsAnswers ) {
+        public void onAnswer(String[] teamsAnswers) {
             System.out.println("listener");
         }
-    } ;
+    };
+    private Quiz quiz;
+    private Timer t1;
+    boolean isTimerStoped = true;
+
     public QuestionScreen(JFrame f, Team[] teams) {
-        super(f, teams, "Data/Fontime.jpg", "Р’РЅРёРјР°РЅРёРµ РІРѕРїСЂРѕСЃ");
+        super(f, teams, "Data/Fontime.jpg", "Внимание вопрос");
 
     }
 
@@ -39,10 +39,10 @@ public class QuestionScreen extends Screen {
         time = 60;
         isTimerStoped = true;
         quiz = Quiz.getRandomQuiz();
-        JLabel questionLabel = new JLabel("" + stringSizeOptimizer(quiz.getQuestion()));
+        JLabel questionLabel = new JLabel(""+stringSizeOptimizer(quiz.getQuestion()));
         questionLabel.setHorizontalAlignment(JLabel.CENTER);
         questionLabel.setFont(new Font(questionLabel.getFont().getName(), Font.PLAIN, 40));
-        questionLabel.setBounds(80, 200, frame.getWidth()-80, frame.getHeight() / 3);
+        questionLabel.setBounds(80, 200, frame.getWidth()-160, frame.getHeight() / 3);
         questionLabel.setVisible(true);
 
         final JLabel timerLabel = new JLabel(""+time);
@@ -57,22 +57,21 @@ public class QuestionScreen extends Screen {
         answerLabel.setFont(new Font(questionLabel.getFont().getName(), Font.PLAIN, 40));
         answerLabel.setText(quiz.getAnswer());
         answerLabel.setVisible(false);
-        answerLabel.setBounds(80, 500, frame.getWidth() - 80, frame.getHeight() / 3);
+        answerLabel.setBounds(80, 550, frame.getWidth()-160, frame.getHeight() / 3);
 
 
-
-        final JButton buttonStartTimer = new JButton("Start timer");
+        final JButton buttonStartTimer = new JButton(Strings.START_TIMER);
         buttonStartTimer.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 isTimerStoped = !isTimerStoped;
                 if (isTimerStoped) {
-                    buttonStartTimer.setText("Start timer");
+                    buttonStartTimer.setText(Strings.START_TIMER);
                 } else {
-                    buttonStartTimer.setText("stop timer");
+                    buttonStartTimer.setText(Strings.STOP_TIMER);
                 }
 
-                timerLabel.setText("" + time);
+                timerLabel.setText(""+time);
                 t1 = new Timer(1000, new Runnable() {
                     @Override
                     public void run() {
@@ -85,11 +84,11 @@ public class QuestionScreen extends Screen {
                             } else {
                                 timerLabel.setForeground(Color.BLACK);
                             }
-                            timerLabel.setText("" + time);
+                            timerLabel.setText(""+time);
                             time--;
                             t1 = new Timer(1000, this);
                         } else {
-                            timerLabel.setText("" + time);
+                            timerLabel.setText(""+time);
                             timerLabel.setForeground(Color.BLUE);
                             if (isTimerStoped == false) {
                                 SoundHandler.beepSound("Sounds/beep-final.wav");
@@ -105,13 +104,12 @@ public class QuestionScreen extends Screen {
         buttonStartTimer.setBounds(200, 20, 200, 40);
 
 
-
-        final JLabel team1ComboLabel = new JLabel("Team 1");
+        final JLabel team1ComboLabel = new JLabel(Strings.TEAM+" 1");
         team1ComboLabel.setHorizontalAlignment(JLabel.CENTER);
         team1ComboLabel.setBounds(440, 20, 190, 40);
         team1ComboLabel.setVisible(false);
 
-        final JLabel team2ComboLabel = new JLabel("Team 2");
+        final JLabel team2ComboLabel = new JLabel(Strings.TEAM + " 2");
         team2ComboLabel.setHorizontalAlignment(JLabel.CENTER);
         team2ComboLabel.setBounds(640, 20, 190, 40);
         team2ComboLabel.setVisible(false);
@@ -124,42 +122,41 @@ public class QuestionScreen extends Screen {
         comboBoxTeam2.setBounds(640, 60, 190, 60);
         comboBoxTeam2.setVisible(false);
 
-        JButton buttonResetTimer = new JButton("Reset timer");
+        JButton buttonResetTimer = new JButton(Strings.RESET_TIMER);
         buttonResetTimer.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                time = 60;
-                isTimerStoped  = true;
-                timerLabel.setForeground(Color.BLUE);
-                timerLabel.setText(""+time);
-                buttonStartTimer.setText("Start timer");
-            }
-        }
+                                               public void actionPerformed(ActionEvent e) {
+                                                   time = 60;
+                                                   isTimerStoped = true;
+                                                   timerLabel.setForeground(Color.BLUE);
+                                                   timerLabel.setText(""+time);
+                                                   buttonStartTimer.setText(Strings.START_TIMER);
+                                               }
+                                           }
         );
         buttonResetTimer.setBounds(200, 80, 200, 40);
-        final JButton buttonAnswer = new JButton("Show Answer");
-        buttonAnswer.addActionListener(new
+        final JButton buttonAnswer = new JButton(Strings.GET_ANSWER);
+        buttonAnswer.addActionListener(new ActionListener() {
+                                           boolean isFirstClick = true;
 
-                                               ActionListener() {
-                                                   boolean isFirstClick = true;
-                                                   public void actionPerformed(ActionEvent e) {
-                                                       System.out.println("isFirstClick " + isFirstClick);
-                                                       if(isFirstClick == true) {
-                                                           buttonAnswer.setText("Send back");
-                                                           answerLabel.setVisible(true);
-                                                           comboBoxTeam1.setVisible(true);
-                                                           comboBoxTeam2.setVisible(true);
-                                                           team1ComboLabel.setVisible(true);
-                                                           team2ComboLabel.setVisible(true);
-                                                           isFirstClick = false;
-                                                       } else {
-                                                           String[] teamsAnswers = {(String) comboBoxTeam1.getSelectedItem(), (String)comboBoxTeam2.getSelectedItem()};
+                                           public void actionPerformed(ActionEvent e) {
+                                               System.out.println("isFirstClick "+isFirstClick);
+                                               if (isFirstClick == true) {
+                                                   buttonAnswer.setText(Strings.SEND_BACK);
+                                                   answerLabel.setVisible(true);
+                                                   comboBoxTeam1.setVisible(true);
+                                                   comboBoxTeam2.setVisible(true);
+                                                   team1ComboLabel.setVisible(true);
+                                                   team2ComboLabel.setVisible(true);
+                                                   isFirstClick = false;
+                                               } else {
+                                                   String[] teamsAnswers = {(String) comboBoxTeam1.getSelectedItem(), (String) comboBoxTeam2.getSelectedItem()};
 
-                                                           onAnswerGiven.onAnswer(teamsAnswers);
-                                                           closeWindow();
+                                                   onAnswerGiven.onAnswer(teamsAnswers);
+                                                   closeWindow();
 
-                                                       }
-                                                   }
                                                }
+                                           }
+                                       }
 
         );
         buttonAnswer.setBounds(frame.getWidth()-400, 20, 300, 100);
@@ -181,30 +178,30 @@ public class QuestionScreen extends Screen {
         String[] itemsTeam1 = new String[team.getPlayerNames().length+1];
         itemsTeam1[0] = GameScore.NO_BODY;
         for (int i = 0; i < team.getPlayerNames().length; i++) {
-            itemsTeam1[i + 1] = team.getPlayerNames()[i];
+            itemsTeam1[i+1] = team.getPlayerNames()[i];
         }
         return itemsTeam1;
     }
 
     private String stringSizeOptimizer(String input) {
-    String[] arrays = input.split(" ");
+        String[] arrays = input.split(" ");
         String result = "<html>";
         //<html>dddddddd<br> rrrrrrrrrrr</html>
         int charSum = 0;
-        for (int i = 0; i < arrays.length;i++){
-            if(charSum + arrays[i].length() < 50) {
+        for (int i = 0; i < arrays.length; i++) {
+            if (charSum+arrays[i].length() < 45) {
                 charSum += arrays[i].length();
-                result += arrays[i] + " ";
+                result += arrays[i]+" ";
             } else {
                 charSum = arrays[i].length();
-                result += "<br>" + arrays[i] + " ";
+                result += "<br>"+arrays[i]+" ";
             }
 
         }
-        return result + "</html>";
+        return result+"</html>";
     }
 
-    public interface OnAnswerGiven{
+    public interface OnAnswerGiven {
         public void onAnswer(String[] teamsAnswers);
     }
 }

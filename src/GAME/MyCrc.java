@@ -74,7 +74,7 @@ public class MyCrc extends MyPanel implements ActionListener {
 
         pointA += speed;
         speed -= 0.005;
-        System.out.println("speed " + speed + " pointA "+ pointA);
+
         if (speed <= 0) {
             speed = 0;
             if(isArrowSpinning == true) {

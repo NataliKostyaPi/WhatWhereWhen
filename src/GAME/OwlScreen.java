@@ -22,6 +22,4 @@ public class OwlScreen extends Screen {
             }
         });
     }
-
-
 }
